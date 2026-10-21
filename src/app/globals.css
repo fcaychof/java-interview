@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-outfit), "Avenir Next", "Segoe UI", sans-serif;
+  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --color-paper: #f3ecdf;
+  --color-ink: #241c15;
+  --color-card: #fffaf2;
+  --color-line: #e0d4c0;
+  --color-ember: #8f3418;
+  --color-ember-soft: #f6e6dc;
+  --color-pine: #1b3a33;
+  --color-moss: #e7f0ea;
+  --color-muted: #6d6256;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: #efd3c4;
+}
+
+@media print {
+  aside,
+  .no-print {
+    display: none !important;
+  }
+  article {
+    break-inside: avoid;
+  }
+}
