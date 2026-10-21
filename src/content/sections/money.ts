@@ -8,7 +8,7 @@ import { moneyTheory } from "../theory/money";
 
 export const money: InterviewSection = {
   id: "money",
-  order: 9,
+  order: 10,
   titles: {
     pt: "Dinheiro, idempotência e falha no meio",
     en: "Money, idempotency, and failure in the middle",

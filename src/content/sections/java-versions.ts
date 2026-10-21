@@ -10,12 +10,12 @@ export const javaVersions: InterviewSection = {
   id: "java-versions",
   order: 4,
   titles: {
-    pt: "Java 8 e Java 17",
-    en: "Java 8 and Java 17",
+    pt: "Java 8, 17, 21 e 25",
+    en: "Java 8, 17, 21, and 25",
   },
   summaries: {
-    pt: "O que o Java 8 ensinou a API a expressar, e por que o salto para o 17 vale mesmo sem usar record.",
-    en: "What Java 8 taught APIs to express, and why the move to 17 pays off even without records.",
+    pt: "O que o Java 8 ensinou a API a expressar, por que o 17 vale sem record, e o que o 21 e o 25 firmaram de verdade.",
+    en: "What Java 8 taught APIs to express, why 17 pays off without records, and what 21 and 25 actually made final.",
   },
   theory: javaVersionsTheory,
   questions: [
@@ -377,7 +377,7 @@ export const javaVersions: InterviewSection = {
           paragraph("Em linguagem, o caminho até o 17 inclui text blocks, switch expression, pattern matching para `instanceof`, records e sealed classes. Records servem para dado imutável com equals e hashCode corretos. Sealed classes fecham a hierarquia e deixam o switch exaustivo. Nenhuma dessas é obrigatória para a migração valer."),
           paragraph("O motivo de produção é a plataforma. O Java 8 público da Oracle ficou sem update livre, e anos de CVE em TLS, deserialização e bibliotecas do JDK ficam sem correção num 8 parado. O 17 é LTS, com uma JVM que o time ainda consegue patchar. A encapsulação forte dos internals do JDK impede código que refletia em classe interna e que quebraria mais tarde, de forma pior."),
           paragraph("Em performance, o ganho não vem de escrever record. Vem do G1 melhor, de ZGC e Shenandoah disponíveis para pausa curta, de melhorias de intrinsics e do respeito ao limite de memória do container. Um Java 8 antigo ignorava cgroup e podia pedir heap maior que o pod; o 17 enxerga o limite. NullPointerException com mensagem diz qual referência era null, e isso encurta incidente."),
-          paragraph("Eu não prometo virtual threads nessa migração: elas chegaram no Java 21. Se o entrevistador perguntar por que não 21, eu digo que 17 é a base corporativa estável e que 21 é o passo seguinte, com virtual threads e pattern matching mais maduro, depois que a suíte e as bibliotecas passam no 17."),
+          paragraph("Eu não prometo virtual threads nessa migração: elas chegaram no Java 21. Se o entrevistador perguntar por que não 21, eu digo que 17 é a base estável e que 21 é o degrau seguinte. O LTS depois do 21 é o 25. Eu subo um degrau por vez, quando a suíte e as bibliotecas passam."),
         ],
         [
           "Linguagem: records, sealed, text blocks, switch, instanceof",
@@ -392,7 +392,7 @@ export const javaVersions: InterviewSection = {
           paragraph("On the language side, the road to 17 includes text blocks, switch expressions, pattern matching for instanceof, records, and sealed classes. Records carry immutable data with correct equals and hashCode. Sealed classes close a hierarchy. None of that is required for the upgrade to pay off."),
           paragraph("The production reason is the platform. Public Oracle Java 8 stopped receiving free updates, so years of TLS, deserialization, and JDK CVEs stay unpatched on a frozen 8. Java 17 is an LTS you can still patch. Strong encapsulation stops code that reflects into JDK internals and would break later, in a worse way."),
           paragraph("The performance gain is not records. It is a better G1, ZGC and Shenandoah for short pauses, better intrinsics, and respect for the container memory limit. An old Java 8 ignored cgroups and could size a heap larger than the pod. Java 17 sees the limit. Helpful NullPointerExceptions shorten incidents."),
-          paragraph("I do not promise virtual threads in this migration: they arrived in Java 21. If asked why not 21, I say 17 is the stable enterprise base and 21 is the next step, once the suite and the libraries pass on 17."),
+          paragraph("I do not promise virtual threads in this migration: they arrived in Java 21. If asked why not 21, I say 17 is the stable base and 21 is the next step. The LTS after 21 is 25. I climb one step at a time, once the suite and the libraries pass."),
         ],
         [
           "Language: records, sealed classes, text blocks, switch, instanceof",
@@ -400,6 +400,423 @@ export const javaVersions: InterviewSection = {
           "Virtual threads are Java 21",
         ],
         "Do not attribute a Java 21 feature to 17, and do not say that without records the upgrade changes nothing.",
+      ),
+    },
+    {
+      id: "java21-features",
+      conceptId: "def-java21",
+      difficulty: "pleno",
+      speakSeconds: 75,
+      titles: {
+        pt: "O que o Java 21 trouxe de definitivo?",
+        en: "What did Java 21 make final?",
+      },
+      covers: ["What are the important features of Java 21?"],
+      pt: locale(
+        "Liste só o que é final. Separe preview. Feche dizendo que string template não conta.",
+        [
+          paragraph("Java 21 é o LTS depois do 17. Definitivo: virtual threads, sequenced collections, record patterns e pattern matching no switch. ZGC geracional também. UTF-8 já era o padrão desde o 18."),
+          paragraph("Eu não vendo preview como feature que o time usa. String templates estavam em preview no 21 e depois foram retirados. Scoped values só ficaram definitivos no 25. Structured concurrency continua preview no 25. O motivo de sair do 17 é virtual thread para I/O bloqueante e um switch que fecha uma hierarquia sealed, com a suíte passando no 21 antes de prometer o 25."),
+        ],
+        [
+          "Virtual threads, sequenced collections, record patterns, switch com padrão",
+          "Preview do 21 não é feature que eu uso",
+          "String templates foram retirados",
+        ],
+        "Não atribua scoped values nem structured concurrency ao 21 como API estável. Não diga que o 21 trouxe string templates.",
+      ),
+      en: locale(
+        "List only what is final. Separate preview. Close by saying string templates do not count.",
+        [
+          paragraph("Java 21 is the LTS after 17. Final: virtual threads, sequenced collections, record patterns, and pattern matching for switch. Generational ZGC too. UTF-8 has been the default since 18."),
+          paragraph("I do not sell a preview as a feature the team uses. String templates were preview in 21 and were later withdrawn. Scoped values became final only in 25. Structured concurrency is still preview in 25. The reason to leave 17 is virtual threads for blocking I/O and a switch that closes a sealed hierarchy, with the suite passing on 21 before I promise 25."),
+        ],
+        [
+          "Virtual threads, sequenced collections, record patterns, pattern switch",
+          "A Java 21 preview is not a feature I use",
+          "String templates were withdrawn",
+        ],
+        "Do not attribute scoped values or structured concurrency to 21 as a stable API. Do not say 21 brought string templates.",
+      ),
+    },
+    {
+      id: "virtual-threads",
+      conceptId: "def-virtual-threads",
+      difficulty: "senior",
+      speakSeconds: 90,
+      titles: {
+        pt: "O que é uma virtual thread, e quando você não usa?",
+        en: "What is a virtual thread, and when do you not use one?",
+      },
+      covers: [
+        "What is the difference between a platform thread and a virtual thread?",
+        "What does it mean for a virtual thread to pin a carrier?",
+      ],
+      pt: locale(
+        "Defina montar e desmontar. Diga I/O bloqueante contra CPU. Feche com o pinning e a versão: 21 prende em synchronized, 24 em diante não.",
+        [
+          paragraph("Virtual thread é uma `Thread` da JVM, não um thread do sistema para cada uma. Enquanto corre, monta num carrier. Quando bloqueia numa chamada da JDK que faz park, desmonta e o carrier pega outra. Eu crio uma por tarefa, com `Thread.ofVirtual()` ou `newVirtualThreadPerTaskExecutor()`. Não ponho num pool."),
+          code(
+            "try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {\n  executor.submit(() -> charge(order));\n}",
+          ),
+          paragraph("Cabe em request bloqueante, JDBC e HTTP. Não cabe em trabalho de CPU: o carrier continua ocupado enquanto calcula. No Java 21, `synchronized` em volta de I/O prende o carrier. `ReentrantLock` não prende. Código nativo prende. A partir do 24, `synchronized` deixou de prender. Nativo continua. `ThreadLocal` gordo vezes um milhão de tarefas é memória, não contexto. No 25 esse contexto imutável é scoped value."),
+        ],
+        [
+          "Desmonta ao bloquear, o carrier segue",
+          "I/O bloqueante sim, CPU não",
+          "Não entra em pool",
+          "No 21 synchronized prende; no 24 não",
+        ],
+        "Não diga que virtual thread deixa o código mais rápido em CPU. Não diga que synchronized prende no Java 25.",
+      ),
+      en: locale(
+        "Define mount and unmount. Say blocking I/O against CPU. Close with pinning and the version: 21 pins on synchronized, and from 24 on it does not.",
+        [
+          paragraph("A virtual thread is a JVM Thread, not one operating-system thread each. While it runs, it mounts on a carrier. When it blocks in a JDK call that parks, it unmounts and the carrier takes another. I create one per task, with Thread.ofVirtual() or newVirtualThreadPerTaskExecutor(). I do not put them in a pool."),
+          code(
+            "try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {\n  executor.submit(() -> charge(order));\n}",
+          ),
+          paragraph("They fit a blocking request, JDBC, and HTTP. They do not fit CPU work: the carrier stays busy while the code computes. On Java 21, synchronized around I/O pins the carrier. ReentrantLock does not pin. Native code pins. From 24, synchronized no longer pins. Native code still does. A fat ThreadLocal times a million tasks is memory, not context. On 25 that immutable context is a scoped value."),
+        ],
+        [
+          "It unmounts when it blocks, the carrier continues",
+          "Blocking I/O yes, CPU no",
+          "It does not go in a pool",
+          "On 21 synchronized pins; on 24 it does not",
+        ],
+        "Do not say a virtual thread makes CPU code faster. Do not say synchronized pins on Java 25.",
+      ),
+    },
+    {
+      id: "pattern-matching-switch",
+      conceptId: "def-pattern-switch",
+      difficulty: "pleno",
+      speakSeconds: 75,
+      titles: {
+        pt: "O que mudou no switch do Java 21?",
+        en: "What changed in switch in Java 21?",
+      },
+      covers: ["What is pattern matching for switch?"],
+      pt: locale(
+        "Mostre tipo, when e null. Diga que sealed dispensa default. Feche com a ordem dos padrões.",
+        [
+          paragraph("O switch do Java 21 casa tipo, não só constante. `when` guarda a condição. `case null` trata ausência. Se o tipo é sealed e todos os permitidos aparecem, o compilador exige exaustividade e o `default` sai."),
+          code(
+            "String label = switch (event) {\n  case PaymentFailed f when f.amount().signum() > 0 -> \"failed\";\n  case PaymentFailed f -> \"empty\";\n  case null -> \"missing\";\n  default -> \"other\";\n};",
+          ),
+          paragraph("O padrão mais específico vem antes. Um `case PaymentFailed f` antes do `when` engole o caso e o de baixo não compila. Eu uso isso num resultado fechado. Não uso para comparar string solta que amanhã ganha um valor novo sem o compilador saber."),
+        ],
+        [
+          "Padrão de tipo, when e null",
+          "Sealed exaustivo dispensa default",
+          "O caso específico vem primeiro",
+        ],
+        "Não diga que todo switch vira expressão. Não esqueça o null se o valor pode ser nulo: sem case null, null ainda lança NullPointerException.",
+      ),
+      en: locale(
+        "Show the type, when, and null. Say sealed drops the default. Close with pattern order.",
+        [
+          paragraph("Java 21 switch matches a type, not only a constant. when guards the condition. case null handles absence. If the type is sealed and every permitted type appears, the compiler demands exhaustiveness and default goes away."),
+          code(
+            "String label = switch (event) {\n  case PaymentFailed f when f.amount().signum() > 0 -> \"failed\";\n  case PaymentFailed f -> \"empty\";\n  case null -> \"missing\";\n  default -> \"other\";\n};",
+          ),
+          paragraph("The more specific pattern comes first. A case PaymentFailed f before the when swallows the case and the one below does not compile. I use this on a closed result. I do not use it to compare a loose string that can gain a new value tomorrow without the compiler knowing."),
+        ],
+        [
+          "Type pattern, when, and null",
+          "An exhaustive sealed switch drops default",
+          "The specific case comes first",
+        ],
+        "Do not say every switch becomes an expression. Do not forget null if the value can be null: without case null, null still throws NullPointerException.",
+      ),
+    },
+    {
+      id: "record-patterns",
+      conceptId: "def-record-patterns",
+      difficulty: "pleno",
+      speakSeconds: 70,
+      titles: {
+        pt: "O que é um record pattern?",
+        en: "What is a record pattern?",
+      },
+      covers: ["How do record patterns deconstruct a record?"],
+      pt: locale(
+        "Desmonte um record no instanceof. Diga que aninhar existe e que quatro níveis já passam do ponto.",
+        [
+          paragraph("Record pattern extrai os componentes no `instanceof` ou no `switch`. O valor só casa se for aquele record. Eu deixo de chamar getter só para nomear o campo."),
+          code(
+            "if (event instanceof PaymentFailed(String id, Money amount)) {\n  refund(id, amount);\n}",
+          ),
+          paragraph("Dá para aninhar, `Box(Point(int x, int y))`, quando a mensagem é mesmo assim. Se a leitura exige decifrar o `case`, eu desmonto em dois passos. Componente que não uso, a partir do 22, é `_`."),
+        ],
+        [
+          "Desmonta o record no instanceof e no switch",
+          "Só casa se o valor for aquele record",
+          "Aninhar demais deixa de ser leitura",
+        ],
+        "Não diga que record pattern substitui equals. Não use isso num tipo que não é record.",
+      ),
+      en: locale(
+        "Take a record apart in instanceof. Say nesting exists and that four levels are already too many.",
+        [
+          paragraph("A record pattern extracts the components in instanceof or in switch. The value matches only when it is that record. I stop calling a getter only to name the field."),
+          code(
+            "if (event instanceof PaymentFailed(String id, Money amount)) {\n  refund(id, amount);\n}",
+          ),
+          paragraph("Nesting works, Box(Point(int x, int y)), when the message really is shaped that way. If reading the case means deciphering it, I take it apart in two steps. A component I do not use, from 22 on, is _."),
+        ],
+        [
+          "It takes the record apart in instanceof and switch",
+          "It matches only when the value is that record",
+          "Nesting too deep stops being readable",
+        ],
+        "Do not say a record pattern replaces equals. Do not use it on a type that is not a record.",
+      ),
+    },
+    {
+      id: "sequenced-collections",
+      conceptId: "def-sequenced-collections",
+      difficulty: "pleno",
+      speakSeconds: 70,
+      titles: {
+        pt: "O que é uma sequenced collection?",
+        en: "What is a sequenced collection?",
+      },
+      covers: ["What do getFirst and reversed add in Java 21?"],
+      pt: locale(
+        "Defina ordem nas duas pontas. Diga quem entra e quem não entra. Feche com a exceção da coleção vazia e do conjunto ordenado.",
+        [
+          paragraph("É uma coleção com ordem de encontro e acesso nas duas pontas. `List`, `Deque`, `LinkedHashSet`, `LinkedHashMap` e `SortedSet`. `getFirst` e `getLast` leem as pontas. `reversed()` é uma visão, não uma cópia. Vazia, `getFirst` lança `NoSuchElementException`."),
+          paragraph("`HashSet` e `HashMap` ficam de fora: não há ordem. `addFirst` num `SortedSet` lança `UnsupportedOperationException`, porque quem manda é a ordenação. Eu troco `list.get(0)` por `getFirst` quando quero esse contrato, e não chamo isso numa coleção sem ordem."),
+        ],
+        [
+          "Ordem definida e acesso nas duas pontas",
+          "HashSet e HashMap não entram",
+          "Vazia lança NoSuchElementException",
+          "reversed é visão",
+        ],
+        "Não diga que toda Collection agora tem getFirst. Não diga que reversed copia a coleção.",
+      ),
+      en: locale(
+        "Define order at both ends. Say who is in and who is out. Close with the empty collection and the sorted set.",
+        [
+          paragraph("It is a collection with an encounter order and access at both ends. List, Deque, LinkedHashSet, LinkedHashMap, and SortedSet. getFirst and getLast read the ends. reversed() is a view, not a copy. On an empty collection, getFirst throws NoSuchElementException."),
+          paragraph("HashSet and HashMap stay out: there is no order. addFirst on a SortedSet throws UnsupportedOperationException, because the sort is in charge. I replace list.get(0) with getFirst when I want that contract, and I do not call it on a collection with no order."),
+        ],
+        [
+          "A defined order and access at both ends",
+          "HashSet and HashMap are out",
+          "Empty throws NoSuchElementException",
+          "reversed is a view",
+        ],
+        "Do not say every Collection now has getFirst. Do not say reversed copies the collection.",
+      ),
+    },
+    {
+      id: "java25-features",
+      conceptId: "def-java25",
+      difficulty: "senior",
+      speakSeconds: 90,
+      titles: {
+        pt: "O que o Java 25 firmou, e por que sair do 21?",
+        en: "What did Java 25 make final, and why leave 21?",
+      },
+      covers: ["What are the important features of Java 25?"],
+      pt: locale(
+        "Separe final de preview. O motivo da migração é suporte, pinning e scoped value, não o main de exemplo. Cite o que chegou no 22 e no 24 porque já está no 25.",
+        [
+          paragraph("Java 25 é o LTS seguinte, desde setembro de 2025. Definitivo: scoped values, construtor com código antes do `super`, `import module` e arquivo compacto com `void main()`. Desde o 21 também ficaram prontos o `_` (22), a Foreign Function and Memory API (22), os gatherers (24) e o fim do pinning em `synchronized` (24)."),
+          paragraph("Na JVM, cabeçalho compacto existe e vem desligado: `-XX:+UseCompactObjectHeaders`. Shenandoah geracional ficou pronto. Carga antecipada de classes e perfil de método encurtam a partida. O Security Manager morreu no 24. Structured concurrency, stable values e padrão de tipo primitivo continuam preview. Eu não ligo `--enable-preview` em produção."),
+          paragraph("Eu saio do 21 pela janela de suporte, pelo `synchronized` que não prende mais o carrier, e por scoped values no lugar de `ThreadLocal` mutável. O `void main()` não é o motivo."),
+        ],
+        [
+          "LTS de setembro de 2025",
+          "Final: scoped values, construtor, import module",
+          "Preview não sobe: structured concurrency e stable values",
+          "Migrar por suporte, pinning e contexto imutável",
+        ],
+        "Não diga que structured concurrency está estável no 25. Não diga que o cabeçalho compacto já vem ligado.",
+      ),
+      en: locale(
+        "Separate final from preview. The migration reason is support, pinning, and scoped values, not the sample main. Name what arrived in 22 and 24 because it is already in 25.",
+        [
+          paragraph("Java 25 is the next LTS, since September 2025. Final: scoped values, a constructor with code before super, import module, and a compact file with void main(). Since 21, these also became ready: _ (22), the Foreign Function and Memory API (22), gatherers (24), and the end of pinning on synchronized (24)."),
+          paragraph("On the JVM, compact headers exist and ship off: -XX:+UseCompactObjectHeaders. Generational Shenandoah became ready. Ahead-of-time class loading and method profiles shorten startup. The Security Manager died in 24. Structured concurrency, stable values, and primitive patterns are still preview. I do not turn on --enable-preview in production."),
+          paragraph("I leave 21 for the support window, for synchronized that no longer pins the carrier, and for scoped values instead of a mutable ThreadLocal. void main() is not the reason."),
+        ],
+        [
+          "LTS from September 2025",
+          "Final: scoped values, constructors, import module",
+          "Preview does not ship: structured concurrency and stable values",
+          "Move for support, pinning, and immutable context",
+        ],
+        "Do not say structured concurrency is stable in 25. Do not say compact headers are already on.",
+      ),
+    },
+    {
+      id: "scoped-values",
+      conceptId: "def-scoped-values",
+      difficulty: "senior",
+      speakSeconds: 80,
+      titles: {
+        pt: "Quando você usa scoped value em vez de ThreadLocal?",
+        en: "When do you use a scoped value instead of a ThreadLocal?",
+      },
+      covers: ["How is a scoped value different from a ThreadLocal?"],
+      pt: locale(
+        "Imutável e limitado ao run. Diga que filho criado com new Thread não herda. Structured concurrency, que herdaria, ainda é preview.",
+        [
+          paragraph("Scoped value guarda um valor imutável pelo escopo da chamada. O usuário do request fica visível em quem `handle` chama, nesta thread. Um `where` interno não altera o de fora. Sem vínculo, `get` lança `NoSuchElementException`."),
+          code(
+            "static final ScopedValue<User> CURRENT_USER = ScopedValue.newInstance();\n\nScopedValue.where(CURRENT_USER, user).run(() -> handle());",
+          ),
+          paragraph("`ThreadLocal` é mutável e, herdado, copia ou vaza entre tarefas. Eu não uso scoped value como service locator nem como cache. Uma thread criada com `new Thread` não herda o vínculo, de propósito: a vida dela pode passar do `run`. Levar o valor a tarefas filhas é structured concurrency, preview no 25. Em produção, no 25, o scoped value fica na thread do request."),
+        ],
+        [
+          "Imutável durante o run",
+          "ThreadLocal mutável copia ou vaza",
+          "new Thread não herda",
+          "Structured concurrency ainda é preview",
+        ],
+        "Não diga que toda virtual thread filha enxerga o scoped value. Não guarde estado mutável nele.",
+      ),
+      en: locale(
+        "Immutable and limited to run. Say a child created with new Thread does not inherit. Structured concurrency, which would inherit, is still preview.",
+        [
+          paragraph("A scoped value holds an immutable value for the scope of the call. The request user stays visible to what handle calls, on this thread. A nested where does not change the outer one. With no binding, get throws NoSuchElementException."),
+          code(
+            "static final ScopedValue<User> CURRENT_USER = ScopedValue.newInstance();\n\nScopedValue.where(CURRENT_USER, user).run(() -> handle());",
+          ),
+          paragraph("ThreadLocal is mutable and, when inherited, copies or leaks across tasks. I do not use a scoped value as a service locator or as a cache. A thread created with new Thread does not inherit the binding, on purpose: its life can outlast run. Carrying the value to child tasks is structured concurrency, preview in 25. In production, on 25, the scoped value stays on the request thread."),
+        ],
+        [
+          "Immutable for the run",
+          "A mutable ThreadLocal copies or leaks",
+          "new Thread does not inherit",
+          "Structured concurrency is still preview",
+        ],
+        "Do not say every child virtual thread sees the scoped value. Do not store mutable state in it.",
+      ),
+    },
+    {
+      id: "stream-gatherers",
+      conceptId: "def-gatherers",
+      difficulty: "pleno",
+      speakSeconds: 70,
+      titles: {
+        pt: "O que é um stream gatherer?",
+        en: "What is a stream gatherer?",
+      },
+      covers: ["When would you use Gatherers.windowFixed?"],
+      pt: locale(
+        "Diga que é a intermediária que filter e map não são. O exemplo é a janela de cem. Recuse gatherer no lugar de map.",
+        [
+          paragraph("Gatherer é uma operação intermediária para janela ou estado. Definitivo no 24, presente no 25. `windowFixed`, `windowSliding`, `fold`, `scan` e `mapConcurrent` já vêm prontos. Um lote de cem pedidos é `gather(Gatherers.windowFixed(100))`."),
+          paragraph("Eu escrevo um gatherer quando o passo não cabe em `map`. Transformar um elemento em outro continua `map`. `mapConcurrent` limita quantos elementos rodam ao mesmo tempo, em virtual threads. Não é o executor da aplicação, e não autoriza JDBC sem teto num parallel stream."),
+        ],
+        [
+          "Intermediária com estado ou janela",
+          "windowFixed entrega o lote",
+          "map continua sendo map",
+          "mapConcurrent tem teto",
+        ],
+        "Não diga que gatherer substitui collect. Não use parallel stream com I/O e chame isso de gatherer.",
+      ),
+      en: locale(
+        "Say it is the intermediate operation filter and map are not. The example is the window of one hundred. Refuse a gatherer in place of map.",
+        [
+          paragraph("A gatherer is an intermediate operation for a window or for state. Final in 24, present in 25. windowFixed, windowSliding, fold, scan, and mapConcurrent already ship. A batch of one hundred orders is gather(Gatherers.windowFixed(100))."),
+          paragraph("I write a gatherer when the step does not fit map. Turning one element into another stays map. mapConcurrent caps how many elements run at once, on virtual threads. It is not the application executor, and it does not authorize unbounded JDBC on a parallel stream."),
+        ],
+        [
+          "An intermediate with state or a window",
+          "windowFixed yields the batch",
+          "map stays map",
+          "mapConcurrent has a cap",
+        ],
+        "Do not say a gatherer replaces collect. Do not do I/O on a parallel stream and call it a gatherer.",
+      ),
+    },
+    {
+      id: "flexible-constructors",
+      conceptId: "def-flexible-constructors",
+      difficulty: "pleno",
+      speakSeconds: 75,
+      titles: {
+        pt: "O que você pode fazer antes do super no Java 25?",
+        en: "What can you do before super in Java 25?",
+      },
+      covers: ["Why can a constructor assign a field before super()?"],
+      pt: locale(
+        "Validar e atribuir campo sem inicializador. Diga o que continua proibido: ler this e chamar método. O motivo é o método sobrescrito no construtor da superclasse.",
+        [
+          paragraph("Antes, `super(...)` era a primeira linha. No 25 eu valido o argumento e atribuo um campo desta classe que não tem inicializador, e só então chamo `super`. Se a superclasse chama um método que o filho sobrescreve, o campo já tem valor, em vez de zero ou null."),
+          code(
+            "Limit(int raw) {\n  if (raw < 0) {\n    throw new IllegalArgumentException();\n  }\n  this.limit = raw;\n  super();\n}",
+          ),
+          paragraph("Antes do `super` eu não leio o campo, não chamo método de instância e não toco estado da superclasse. Campo que já nasce com inicializador não entra nessa atribuição. O construtor chamar método sobrescrito continua sendo má prática. A feature só impede que essa prática veja o zero."),
+        ],
+        [
+          "Validar o argumento antes do super",
+          "Atribuir campo desta classe sem inicializador",
+          "Não ler this nem chamar método",
+          "Evita o zero visto por um override",
+        ],
+        "Não diga que agora dá para usar this inteiro antes do super. Não diga que chamar método sobrescrito no construtor ficou recomendado.",
+      ),
+      en: locale(
+        "Validate and assign a field that has no initializer. Say what stays forbidden: reading this and calling a method. The reason is an overridden method in the superclass constructor.",
+        [
+          paragraph("Before, super(...) was the first line. In 25 I validate the argument and assign a field of this class that has no initializer, and only then call super. If the superclass calls a method the child overrides, the field already has a value, instead of zero or null."),
+          code(
+            "Limit(int raw) {\n  if (raw < 0) {\n    throw new IllegalArgumentException();\n  }\n  this.limit = raw;\n  super();\n}",
+          ),
+          paragraph("Before super I do not read the field, I do not call an instance method, and I do not touch superclass state. A field that already has an initializer is not part of that assignment. A constructor calling an overridden method is still a bad practice. The feature only stops that practice from seeing zero."),
+        ],
+        [
+          "Validate the argument before super",
+          "Assign a field of this class that has no initializer",
+          "Do not read this or call a method",
+          "It avoids the zero seen by an override",
+        ],
+        "Do not say you can now use this freely before super. Do not say calling an overridden method from a constructor became recommended.",
+      ),
+    },
+    {
+      id: "small-language-changes",
+      conceptId: "def-small-language",
+      difficulty: "pleno",
+      speakSeconds: 70,
+      titles: {
+        pt: "Para que servem o _, o import module e o void main()?",
+        en: "What are _, import module, and void main() for?",
+      },
+      covers: ["What is an unnamed variable in Java?"],
+      pt: locale(
+        "Três cortes curtos. _ não se lê. import module não é import estrela de um pacote. void main é script, não serviço.",
+        [
+          paragraph("`_`, definitivo no 22, marca o que eu não uso: `catch (IOException _)` ou um componente de record pattern. Não dá para ler esse nome. Ele existe para o binding não virar variável fantasma."),
+          paragraph("`import module java.sql` puxa os pacotes exportados pelo módulo, não um pacote só como `import java.sql.*`. O arquivo não precisa estar num módulo. Nome ambíguo se qualifica. `void main()` sem classe, definitivo no 25, serve para um exemplo ou um script. `IO.println` leva o nome da classe. O serviço da aplicação continua com classe, pacote e construtor."),
+        ],
+        [
+          "_ não pode ser lido",
+          "import module puxa o módulo, não um pacote",
+          "void main não substitui a classe do serviço",
+        ],
+        "Não diga que _ é uma variável comum. Não diga que um serviço Spring agora é um arquivo sem classe.",
+      ),
+      en: locale(
+        "Three short cuts. _ cannot be read. import module is not a star import of one package. void main is a script, not a service.",
+        [
+          paragraph("_, final in 22, marks what I do not use: catch (IOException _) or a record-pattern component. That name cannot be read. It exists so the binding does not become a ghost variable."),
+          paragraph("import module java.sql pulls in the packages the module exports, not one package the way import java.sql.* does. The file does not have to be in a module. An ambiguous name gets qualified. void main() without a class, final in 25, is for an example or a script. IO.println keeps the class name. The application service still has a class, a package, and a constructor."),
+        ],
+        [
+          "_ cannot be read",
+          "import module pulls in the module, not one package",
+          "void main does not replace the service class",
+        ],
+        "Do not say _ is an ordinary variable. Do not say a Spring service is now a file without a class.",
       ),
     },
   ],

@@ -7,7 +7,7 @@ import { securityAndApisTheory } from "../theory/security-and-apis";
 
 export const securityAndApis: InterviewSection = {
   id: "security-and-apis",
-  order: 12,
+  order: 13,
   titles: {
     pt: "Segurança, erros e clientes HTTP",
     en: "Security, errors, and HTTP clients",

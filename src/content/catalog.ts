@@ -9,6 +9,7 @@ import { money } from "./sections/money";
 import { production } from "./sections/production";
 import { qualityAndAws } from "./sections/quality-and-aws";
 import { securityAndApis } from "./sections/security-and-apis";
+import { softwareDesign } from "./sections/software-design";
 import { solid } from "./sections/solid";
 import { spring } from "./sections/spring";
 import { stringAndCollections } from "./sections/string-and-collections";
@@ -22,6 +23,7 @@ const orderedSections: readonly InterviewSection[] = [
   javaVersions,
   solid,
   gof,
+  softwareDesign,
   spring,
   transactions,
   money,

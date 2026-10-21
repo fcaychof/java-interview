@@ -7,7 +7,7 @@ import { productionTheory } from "../theory/production";
 
 export const production: InterviewSection = {
   id: "production",
-  order: 13,
+  order: 14,
   titles: {
     pt: "Produção e diagnóstico",
     en: "Production and diagnosis",

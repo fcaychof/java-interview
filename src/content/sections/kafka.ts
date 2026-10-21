@@ -7,7 +7,7 @@ import { kafkaTheory } from "../theory/kafka";
 
 export const kafka: InterviewSection = {
   id: "kafka",
-  order: 10,
+  order: 11,
   titles: {
     pt: "Kafka",
     en: "Kafka",

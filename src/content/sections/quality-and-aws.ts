@@ -7,7 +7,7 @@ import { qualityAndAwsTheory } from "../theory/quality-and-aws";
 
 export const qualityAndAws: InterviewSection = {
   id: "quality-and-aws",
-  order: 14,
+  order: 15,
   titles: {
     pt: "Qualidade de código e AWS",
     en: "Code quality and AWS",

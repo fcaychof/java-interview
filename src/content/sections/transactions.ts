@@ -7,7 +7,7 @@ import { transactionsTheory } from "../theory/transactions";
 
 export const transactions: InterviewSection = {
   id: "transactions",
-  order: 8,
+  order: 9,
   titles: {
     pt: "Transações, JPA e Hibernate",
     en: "Transactions, JPA, and Hibernate",
